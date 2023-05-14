@@ -53,16 +53,17 @@ const Product = () => {
     getCart()
   }, [])
 
-  const filterByCatogories =(e, value)=> {
-    const data = productData.filter((data) => data.categories === value)
-    setProductData(data)
-  }
-
 
   const ProductSorting = (e, field) => {
     setProductSort(field)
   }
 
+  const getProductByCategory = async () => {
+    const url = "http://localhost:9999/api/getproductscategory"
+    const res = await axios.get(url, categories)
+    setProductData(res.data)
+  }
+  
 
 
   const addToCart = async (param) => {
@@ -78,7 +79,7 @@ const Product = () => {
         className='search_slection'
           disablePortal
           id="combo-box-demo"
-          onInputChange={filterByCatogories}
+          onInputChange={getProductByCategory}
           options={[{ label: 'grocery', value: 'grocery' },
           { label: 'food', value: 'food' }]}
           sx={{ width: 300 }}
