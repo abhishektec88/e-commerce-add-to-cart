@@ -6,6 +6,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { PERMISSIONS } from '../../Constant';
 // import { Button } from '@mui/material';
 import { useSelector } from 'react-redux'
+import { Button } from '@mui/material';
 
 const Header = () => {
   const auth = useContext(AuthContext)
@@ -15,17 +16,12 @@ const Header = () => {
   const checkAuth = Object.keys(auth).length
 
   const Logout = () => {
-    // localStorage.removeItem('token')
-    // if(!checkAuth) {
-    //   Navigate('/')
-    // }
-    console.log('wdjsdhjdhkh', checkAuth)
+    localStorage.removeItem('token')
+    Navigate('/login')
   }
 {/* <button  onClick={() => Logout()}>Logout</button> */}
 
   return (
-    <>
-    {auth && auth.role === PERMISSIONS.ADMIN ? <></> :
     <nav class="navbar">
 
     <div class="left">
@@ -45,25 +41,23 @@ const Header = () => {
       </label>
 
       <ul class="list">
-        {auth && auth.role === PERMISSIONS.USER && <li><a href="/">Product</a></li>}
-        {/* {auth && auth.role === PERMISSIONS.ADMIN && <li><a href="/productmanagement">Product management</a></li>} */}
-        {auth && auth.role === PERMISSIONS.USER && <li><a href="/cart">cart</a></li>}
+        {auth && auth.role === PERMISSIONS.USER && <li><Link to="/">Product</Link></li>}
+        {auth && auth.role === PERMISSIONS.ADMIN && <li><Link to="/productmanagement">Product management</Link></li>}
+        {auth && auth.role === PERMISSIONS.USER && <li><Link to="/cart">cart</Link></li>}
         {!checkAuth && (
           <>
-            <li><a href="/registration">register</a></li>
+            <li><Link to="/registration">register</Link></li>
 
-            <li><a href="/login">login</a></li>
+            <li><Link to="/login">login</Link></li>
           </>
         )}
-        {checkAuth && auth.role === PERMISSIONS.USER && <li><ShoppingCartIcon/> <span>{count}</span></li>}
+       {auth && auth.role && <li style={{cursor: 'pointer'}} onClick={() => Logout()}>Log Out</li>}
 
       </ul>
 
     </div>
 
   </nav>
-    }
-    </>
   )
 }
 
