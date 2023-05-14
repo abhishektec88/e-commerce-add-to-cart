@@ -185,6 +185,12 @@ app.get('/api/products', async (req, res) => {
 	res.json(products)
 })
 
+app.get('/api/getproductscategory', async (req, res) => {
+	const {categories} = req.body
+	const products = await Product.find({categories})
+	res.json(products)
+})
+
 app.post('/api/add-to-cart', async (req, res) => {
 	const {productId, qty, userId } = req.body
 
