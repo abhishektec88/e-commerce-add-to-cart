@@ -13,33 +13,25 @@ const Header = () => {
   const Logout = () => {
     logoutAuth()
     setTimeout(() => {
-      Navigate('/')
+      Navigate('/login')
     }, 500)
     
   }
 
-  console.log("yyyyy==",auth)
-
   return (
-    <nav class="navbar">
+    <nav className="navbar">
 
-    <div class="left">
+    <div className="left">
 
       <h1>Navbar</h1>
 
     </div>
 
-    <div class="right">
+    <div className="right">
 
       <input type="checkbox" id="check" />
 
-      <label for="check" class="checkBtn">
-
-        <i class="fa fa-bars"></i>
-
-      </label>
-
-      <ul class="list">
+      <ul className="list">
         {auth && userInfo?.role === PERMISSIONS.USER && <li><Link to="/product">Product</Link></li>}
         {auth && userInfo?.role === PERMISSIONS.ADMIN && <li><Link to="/productmanagement">Product management</Link></li>}
         {auth && userInfo?.role === PERMISSIONS.USER && <li><Link to="/cart">cart</Link></li>}

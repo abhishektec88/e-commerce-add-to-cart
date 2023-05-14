@@ -8,9 +8,6 @@ import { store } from './store'
 import { Provider } from 'react-redux'
 
 function App() {
-
-  // console.log('AppRoute', AppRoute)
-
   return (
     <>
     <Provider store={store}>

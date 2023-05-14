@@ -19,12 +19,17 @@ import { GetUserInfoByToken } from "../utils/GetUserInfoByToken";
 
 export const Route = [
     {
-        path: '/',
+        path: '/login',
         element: <><Header/><Login/></>,
         loader:({ request }) =>
-        fetch("/api/", {
+        fetch("/api/login.json", {
           signal: request.signal,
         }),
+        auth: false,
+    },
+    {
+        path: '/',
+        element: <><Header/><Login/></>,
         auth: false,
     },
     {

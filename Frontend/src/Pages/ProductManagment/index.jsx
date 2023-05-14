@@ -22,8 +22,6 @@ const ProductManagment =({ddData})=> {
     setEditData(data)
   }
 
-  console.log('editData', editData)
-
   return (
     <>
     {!editMode ?

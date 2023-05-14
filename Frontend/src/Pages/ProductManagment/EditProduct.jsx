@@ -18,29 +18,16 @@ const EditProduct = ({setEditMode, editData}) => {
             ...editData
         }
       });
-    // const onSubmit = data => console.log(data);
-
-    // const imageName = watch("image")?.[0]?.name
-
     const getBase64 = file => {
         return new Promise(resolve => {
             let fileInfo;
             let baseURL = "";
-            // Make new FileReader
             let reader = new FileReader();
-
-            // Convert the file to base64 text
             reader.readAsDataURL(file);
-
-            // on reader load somthing...
             reader.onload = () => {
-                // Make a fileInfo Object
-                console.log("Called", reader);
                 baseURL = reader.result;
-                console.log(baseURL);
                 resolve(baseURL);
             };
-            console.log(fileInfo);
         });
     };
 
@@ -53,7 +40,6 @@ const EditProduct = ({setEditMode, editData}) => {
         getBase64(file)
             .then(result => {
                 file["base64"] = result;
-                console.log("File Is", file);
                 setFileState({
                     base64URL: result,
                     file
@@ -76,7 +62,6 @@ const EditProduct = ({setEditMode, editData}) => {
             toast.success('Product Added successfully')
             setEditMode(false)
         }
-        console.log('datasasa', data, editData)
     }
 
 
