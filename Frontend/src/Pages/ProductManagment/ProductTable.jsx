@@ -72,6 +72,7 @@ export default function ProductTable({setEditMode}) {
               <Button
                 variant="contained"
                 color="primary"
+                style={{backgroundColor: '#c94e4e'}}
                 onClick={(event) => {
                     deleteProduct(cellValues.row._id);
                 }}
