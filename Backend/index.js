@@ -185,8 +185,8 @@ app.get('/api/products', async (req, res) => {
 	res.json(products)
 })
 
-app.get('/api/getproductscategory', async (req, res) => {
-	const {categories} = req.body
+app.get('/api/getproductscategory/:categories', async (req, res) => {
+	const categories = req.params.categories
 	const products = await Product.find({categories})
 	res.json(products)
 })
