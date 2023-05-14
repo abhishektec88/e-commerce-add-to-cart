@@ -58,11 +58,11 @@ const Product = () => {
     setProductSort(field)
   }
 
-  const getProductByCategory = async (categories) => {
-    const url = "http://localhost:9999/api/getproductscategory"
-    const res = await axios.get(url, categories)
+  const getProductByCategory = async (e,ctr) => {
+    const url = `http://localhost:9999/api/getproductscategory/${ctr}`
+    const res = await axios.get(url)
     setProductData(res.data)
-    console.log('res.data', res.data)
+    console.log('res.data', ctr)
   }
   
 
