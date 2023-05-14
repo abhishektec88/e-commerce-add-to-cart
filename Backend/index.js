@@ -56,7 +56,6 @@ app.post('/api/change-password', async (req, res) => {
 		)
 		res.json({ status: 'ok' })
 	} catch (error) {
-		console.log(error)
 		res.json({ status: 'error', error: ';))' })
 	}
 })
@@ -113,7 +112,6 @@ app.post('/api/register', async (req, res) => {
 			password,
             role
 		})
-		console.log('User created successfully: ', response)
 	} catch (error) {
 		if (error.code === 11000) {
 			return res.json({ status: 'error', error: 'Username already in use' })
@@ -175,7 +173,6 @@ app.put('/api/edit-product', async (req, res) => {
 		}
 		throw error
 	}
-	console.log('data',_id)
 
 	res.json({ status: 'ok' })
 })
