@@ -1,0 +1,83 @@
+.container {
+    width: fit-content;
+    margin: 0px auto;
+    padding-top: 16px;
+  }
+  
+  .card {
+    margin-top: 16px;
+    background-color: rgb(162, 198, 198);
+    padding: 20px;
+    word-break: break-word;
+    max-width: fit-content;
+    height: 332px;
+  }
+
+  .uploadBtn {
+    margin-top: 20px;
+  }
+
+  .canceleBtn {
+    background-color: rgb(201, 78, 78);
+  }
+  
+  .rounded {
+    border-radius: 16px;
+  }
+  
+  .image-container {
+    position: relative;
+  }
+  
+  .image-container img {
+    border-radius: 8px;
+    backface-visibility: hidden;
+  }
+  
+  .image-container img:hover {
+    cursor: pointer;
+    opacity: 0.3;
+    transition: ease-in 200ms;
+    background-color: #2cc;
+  }
+  
+  .image-container img:hover .eye {
+    opacity: 1;
+  }
+  
+  .sale span {
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .sale {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  hr {
+    border: none;
+    border-top: 1px solid #b4b4b4;
+    margin: 16px auto;
+  }
+  
+  .author img {
+    border-radius: 100%;
+  }
+  
+  .author {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  .eye {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  
