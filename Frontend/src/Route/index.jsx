@@ -1,7 +1,6 @@
 import {
     createBrowserRouter,
     RouterProvider,
-    // Route,
   } from "react-router-dom";
 import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
@@ -11,64 +10,72 @@ import Cart from "../Pages/Cart";
 import { PERMISSIONS } from "../Constant"
 import ProductManagment from "../Pages/ProductManagment";
 
-import jwt_decode from "jwt-decode";
-
-const authValue = localStorage.getItem('token') ? jwt_decode(localStorage.getItem('token')) : {};
 import Header from "../Component/Header";
+import { AuthContext } from "../Context/AuthProvider";
+import { useContext, useEffect, useState } from 'react';
+import { GetUserInfoByToken } from "../utils/GetUserInfoByToken";
 
-const auth = Object.keys(authValue).length ? true : false
+
 
 export const Route = [
     {
-        path: '/login',
+        path: '/',
         element: <><Header/><Login/></>,
+        loader:({ request }) =>
+        fetch("/api/", {
+          signal: request.signal,
+        }),
         auth: false,
     },
     {
         path: '/registration',
         element: <><Header/><Registration /></>,
+        loader:({ request }) =>
+        fetch("/api/registration.json", {
+          signal: request.signal,
+        }),
         auth: false,
     },
     {
-        path: '/',
+        path: '/product',
         element: <><Header/><Product/></>,
-        auth: false,
-        permissions: [PERMISSIONS.PUBLIC],
+        loader:({ request }) =>
+        fetch("/api/product.json", {
+          signal: request.signal,
+        }),
+        auth: true,
+        permissions: [PERMISSIONS.ADMIN, PERMISSIONS.USER],
     },
     {
         path: '/productmanagement',
         element: <><Header/><ProductManagment/></>,
+        loader:({ request }) =>
+        fetch("/api/productmanagement.json", {
+          signal: request.signal,
+        }),
         auth: true,
         permissions: [PERMISSIONS.ADMIN],
     },
     {
         path: '/cart',
         element: <><Header/><Cart/></>,
+        loader:({ request }) =>
+        fetch("/api/cart.json", {
+          signal: request.signal,
+        }),
         auth: true,
         permissions: [PERMISSIONS.ADMIN, PERMISSIONS.USER],
     },
 ]
 
 
-
-// console.log('authValue', localStorage.getItem('data') && jwt_decode(localStorage.getItem('data')))
-
-
-
-const userType = 'ADMIN'
-
-const AuthRoute = Route.filter((route) => route.auth === auth && (route.permissions && route.permissions.includes(userType)))
-const PublicRoute = Route.filter((route) => auth && route.permissions && route.permissions.includes(PERMISSIONS.PUBLIC))
-const AuthenticationRoute = !auth ? Route.filter((route) => !route.auth) : []
-
-
-
-const router = createBrowserRouter([...AuthRoute, ...PublicRoute, ...AuthenticationRoute])
-
-
 export const AppRoute = () => {
-    console.log('router', router)
+const {auth, userInfo} = useContext(AuthContext)
+
+const AuthRoute = Route.filter((route) => route.auth && (route.permissions && route.permissions.includes(userInfo?.role)))
+const AuthenticationRoute = !auth ? Route.filter((route) => !route.auth) : []
+const router = createBrowserRouter([...AuthRoute, ...AuthenticationRoute])
     return (
-        <RouterProvider router={router} ddData={'datatata'} />
+        <RouterProvider router={router} />
     )
 }

@@ -72,10 +72,6 @@ const AddProduct = () => {
         }
     }
 
-
-
-
-
     return (
         <>
             <div className="container">

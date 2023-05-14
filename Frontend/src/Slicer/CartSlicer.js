@@ -8,7 +8,7 @@ export const cartSlice = createSlice({
   name: 'cartCount',
   initialState,
   reducers: {
-    cartCount: (state) => {
+    cartCount: (state, action) => {
       state.value = action.payload
     },
   },

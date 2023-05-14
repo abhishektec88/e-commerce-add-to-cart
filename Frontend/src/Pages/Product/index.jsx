@@ -6,16 +6,16 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios'
 import './style.scss'
+import { toast } from 'react-toastify';
 
 const Product = () => {
   const [productData, setProductData] = useState([])
   const [productQnty, setProductQnty] = useState(1)
   const [productSort, setProductSort] = useState('')
-  const [cartitem, setCartItem] = useState([])
 
   const dispatch = useDispatch()
 
-  const auth = useContext(AuthContext)
+  const {userInfo} = useContext(AuthContext)
 
   function dynamicSort(property) {
     var sortOrder = 1;
@@ -37,15 +37,14 @@ const Product = () => {
 
   const getCart = async () => {
     const url = "http://localhost:9999/api/get-cart"
-    const res = await axios.get(`${url}/${auth._id}`)
+    const res = await axios.get(`${url}/${userInfo.id}`)
     const CartProduct = productData.filter((product) => {
       return res.data.some((cart) => {
         return cart.productId === product._id;
       });
     }
     );
-    setCartItem(CartProduct)
-    dispatch(cartCount(cartCount.length))
+    dispatch(cartCount(CartProduct.length))
   }
 
   useEffect(() => {
@@ -72,6 +71,9 @@ const Product = () => {
     const res = await axios.post(url, param)
     getProduct();
     getCart()
+    if(res.data.status === 'ok') {
+      toast.success('Product added to the cart')
+    }
   }
   return (
     <>
@@ -110,7 +112,7 @@ const Product = () => {
                 <p className="description">{description}</p>
                 <label >Quantity:</label>
                 <input onChange={(e) => setProductQnty(e.target.value)} type="text" name="item-1-quantity" id="item-1-quantity" value={productQnty} />
-                <button onClick={() => addToCart({ qty: productQnty, productId: _id, userId: auth.id })} type="button" name="item-1-button" id="item-1-button">Add to Cart</button>
+                <button onClick={() => addToCart({ qty: productQnty, productId: _id, userId: userInfo.id })} type="button" name="item-1-button" id="item-1-button">Add to Cart</button>
               </div>
             </div>
           );

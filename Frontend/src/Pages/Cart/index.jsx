@@ -10,7 +10,7 @@ import './style.scss'
 const Cart = () => {
   const [cartitem, setCartItem] = useState([])
   const dispatch = useDispatch()
-  const auth = useContext(AuthContext)
+  const {userInfo} = useContext(AuthContext)
   const getProduct = async () => {
     const url = "http://localhost:9999/api/products"
     const res = await axios.get(url)
@@ -19,7 +19,7 @@ const Cart = () => {
   const getCart = async () => {
     const url = "http://localhost:9999/api/get-cart"
     const data = await getProduct()
-    const res = await axios.get(`${url}/${auth.id}`)
+    const res = await axios.get(`${url}/${userInfo.id}`)
     const CartProduct = data.filter((product) => {
       return res.data.some((cart) => {
         return cart.productId === product._id;

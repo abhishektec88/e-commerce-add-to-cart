@@ -1,21 +1,27 @@
 import './style.scss'
 import axios from 'axios'
+import { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider';
 
 
 
 const Login = () => {
 	const { register, handleSubmit } = useForm();
+	// const [loginvalue, setLoginValue] = useState()
 	const Navigate = useNavigate()
+	const {LoginAuth} = useContext(AuthContext)
+
 	const onSubmit = async (date) => {
 		const url = 'http://localhost:9999/api/login'
 		const res = await axios.post(url, date)
-		localStorage.setItem('token', res.data.data)
-		if(res.data.status === 'ok') {
-			Navigate("/")
+			LoginAuth(res.data.data)
+			if(res.data.status === 'ok') {
+				Navigate("/product")
 		}
 	}
+
   return (
     <div className="logincontainer">
 	<div className="screen">
