@@ -69,9 +69,9 @@ const EditProduct = ({setEditMode, editData}) => {
     };
 
     const onSubmit = async (data) => {
-        const url = `http://localhost:9999/api/edit-product/${editData._id}`
+        const url = `http://localhost:9999/api/edit-product`
         const {categories, description,name,price,qty} = data
-        const res = await axios.put(url, {categories, description,name,price,qty , image: fileState.base64URL ? fileState.base64URL : editData.image })
+        const res = await axios.put(url, {_id: editData._id, categories, description,name,price,qty , image: fileState.base64URL ? fileState.base64URL : editData.image })
         if(res.data.status === 'ok') {
             toast.success('Product Added successfully')
             setEditMode(false)
