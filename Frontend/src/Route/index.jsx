@@ -19,17 +19,13 @@ import { GetUserInfoByToken } from "../utils/GetUserInfoByToken";
 
 export const Route = [
     {
+        exact: true,
         path: '/login',
         element: <><Header/><Login/></>,
-        loader:({ request }) =>
-        fetch("/api/login.json", {
-          signal: request.signal,
-        }),
         auth: false,
     },
     {
-        path: '/',
-        element: <><Header/><Login/></>,
+        element: <><h1>Not Found</h1></>,
         auth: false,
     },
     {
@@ -71,6 +67,10 @@ export const Route = [
         auth: true,
         permissions: [PERMISSIONS.ADMIN, PERMISSIONS.USER],
     },
+    {
+        element: <><h1>Not Found</h1></>,
+        auth: true,
+    },
 ]
 
 
@@ -79,7 +79,7 @@ const {auth, userInfo} = useContext(AuthContext)
 
 const AuthRoute = Route.filter((route) => route.auth && (route.permissions && route.permissions.includes(userInfo?.role)))
 const AuthenticationRoute = !auth ? Route.filter((route) => !route.auth) : []
-const router = createBrowserRouter([...AuthRoute, ...AuthenticationRoute])
+const router = createBrowserRouter([...AuthenticationRoute, ...AuthRoute])
     return (
         <RouterProvider router={router} />
     )

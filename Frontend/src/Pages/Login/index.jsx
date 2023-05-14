@@ -1,6 +1,6 @@
 import './style.scss'
 import axios from 'axios'
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
@@ -10,7 +10,6 @@ import { PERMISSIONS } from '../../Constant';
 
 const Login = () => {
 	const { register, handleSubmit } = useForm();
-	// const [loginvalue, setLoginValue] = useState()
 	const Navigate = useNavigate()
 	const { LoginAuth, userInfo } = useContext(AuthContext)
 
@@ -19,13 +18,19 @@ const Login = () => {
 		const res = await axios.post(url, date)
 		LoginAuth(res.data.data)
 		setTimeout(() => {
-			if (res.data.status === 'ok' && userInfo?.role === PERMISSIONS.USER) {
-				Navigate("/product")
-			} else if (res.data.status === 'ok' && userInfo?.role === PERMISSIONS.ADMIN) {
-				Navigate("/productmanagement")
+			if (res.data.status === 'ok') {
+				window.location.href = "/product"
 			}
 		}, 400)
 	}
+
+	useEffect(() => {
+		if(userInfo?.role === PERMISSIONS.USER) {
+			Navigate("/product")
+		} else if (userInfo?.role === PERMISSIONS.ADMIN) {
+			Navigate("/productmanagement")
+		}
+	}, [])
 
 	return (
 		<div className="logincontainer">

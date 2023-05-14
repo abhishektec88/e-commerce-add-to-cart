@@ -13,7 +13,7 @@ const Header = () => {
   const Logout = () => {
     logoutAuth()
     setTimeout(() => {
-      Navigate('/login')
+      window.location.href = '/login'
     }, 500)
     
   }
