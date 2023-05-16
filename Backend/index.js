@@ -184,8 +184,13 @@ app.get('/api/products', async (req, res) => {
 
 app.get('/api/getproductscategory/:categories', async (req, res) => {
 	const categories = req.params.categories
-	const products = await Product.find({categories})
-	res.json(products)
+	if(categories === "All") {
+		const products = await Product.find()
+	    res.json(products)
+	} else {
+		const products = await Product.find({categories})
+	    res.json(products)
+	}
 })
 
 app.post('/api/add-to-cart', async (req, res) => {
