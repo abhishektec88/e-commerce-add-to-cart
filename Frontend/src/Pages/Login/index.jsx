@@ -2,7 +2,6 @@ import './style.scss'
 import axios from 'axios'
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { PERMISSIONS } from '../../Constant';
 
@@ -10,7 +9,6 @@ import { PERMISSIONS } from '../../Constant';
 
 const Login = () => {
 	const { register, handleSubmit } = useForm();
-	const Navigate = useNavigate()
 	const { LoginAuth, userInfo } = useContext(AuthContext)
 
 	const onSubmit = async (date) => {
@@ -26,11 +24,11 @@ const Login = () => {
 
 	useEffect(() => {
 		if(userInfo?.role === PERMISSIONS.USER) {
-			Navigate("/product")
+			window.location.href = "/product"
 		} else if (userInfo?.role === PERMISSIONS.ADMIN) {
-			Navigate("/productmanagement")
+			window.location.href = "/productmanagement"
 		}
-	}, [])
+	}, [userInfo])
 
 	return (
 		<div className="logincontainer">

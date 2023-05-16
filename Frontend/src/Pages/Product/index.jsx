@@ -52,7 +52,6 @@ const Product = () => {
     getCart()
   }, [])
 
-
   const ProductSorting = (e, field) => {
     setProductSort(field)
   }
@@ -61,7 +60,6 @@ const Product = () => {
     const url = `http://localhost:9999/api/getproductscategory/${ctr}`
     const res = await axios.get(url)
     setProductData(res.data)
-    console.log('res.data', ctr)
   }
   
 
@@ -80,11 +78,11 @@ const Product = () => {
       <div className='search_panel'>
         <Autocomplete
         className='search_slection'
-          disablePortal
+          disableClearable
           id="combo-box-demo"
           onInputChange={getProductByCategory}
           options={[{ label: 'grocery', value: 'grocery' },
-          { label: 'food', value: 'food' }]}
+          { label: 'food', value: 'food' }, {label: 'All', value: ''}]}
           sx={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="Serch or filter" />}
         />

@@ -12,8 +12,7 @@ import ProductManagment from "../Pages/ProductManagment";
 
 import Header from "../Component/Header";
 import { AuthContext } from "../Context/AuthProvider";
-import { useContext, useEffect, useState } from 'react';
-import { GetUserInfoByToken } from "../utils/GetUserInfoByToken";
+import { useContext} from 'react';
 
 
 
@@ -83,8 +82,8 @@ export const Route = [
 export const AppRoute = () => {
 const {auth, userInfo} = useContext(AuthContext)
 
-const AuthRoute = Route.filter((route) => route.auth && (route.permissions && route.permissions.includes(userInfo?.role)))
-const AuthenticationRoute = !auth ? Route.filter((route) => !route.auth) : []
+const AuthRoute = Route.filter((route) => (route.permissions && route.permissions.includes(userInfo?.role)))
+const AuthenticationRoute = Route.filter((route) => !route.auth)
 const router = createBrowserRouter([...AuthenticationRoute, ...AuthRoute])
     return (
         <RouterProvider router={router} />
