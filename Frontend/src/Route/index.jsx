@@ -25,6 +25,12 @@ export const Route = [
         auth: false,
     },
     {
+        exact: true,
+        path: '/',
+        element: <><Header/><Login/></>,
+        auth: false,
+    },
+    {
         element: <><h1>Not Found</h1></>,
         auth: false,
     },
